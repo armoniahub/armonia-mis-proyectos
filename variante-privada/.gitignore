@@ -1,5 +1,7 @@
 # Tu espacio PRIVADO (lo creó la extensión ArmonIA con «Crear mi espacio privado»): lo que escribes en mis-proyectos/
-# SÍ se sube, porque este repo es tuyo y privado. Lo único que nunca se sube:
+# SÍ se sube, porque este repo es tuyo y privado, y lo ve también David, tu arquitecto. Lo que no quieras que vea nadie
+# va en solo-en-mi-computador/, que nunca se sube. Tampoco se suben:
+solo-en-mi-computador/
 .env*
 *.tmp
 .claude/settings.local.json
