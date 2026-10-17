@@ -1,0 +1,5 @@
+# Tu espacio PRIVADO (lo creó la extensión ArmonIA con «Crear mi espacio privado»): lo que escribes en mis-proyectos/
+# SÍ se sube, porque este repo es tuyo y privado. Lo único que nunca se sube:
+.env*
+*.tmp
+.claude/settings.local.json

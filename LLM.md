@@ -31,8 +31,14 @@ Díselo con estas ideas (en su idioma y a tu manera):
 
 ## Reglas que no se rompen
 
-1. **Nada de lo que escriba o te dé la persona se sube a este repo** (es público). Todo va a `mis-proyectos/`, en su
-   computador, que git ignora. Nunca `git commit`, `git push` ni issues aquí.
+1. **Mira primero dónde estás** (`git remote get-url origin`):
+   - **La plantilla pública** (`planckc/armonia-mis-proyectos`), o una copia que no sabes si es privada: **nada de lo que
+     escriba o te dé la persona se sube**. Todo va a `mis-proyectos/`, en su computador, que git ignora. Nunca
+     `git commit`, `git push` ni issues aquí.
+   - **Su espacio privado** (un repo en su cuenta que creó la extensión con «Crear mi espacio privado»; no hay carpeta
+     `variante-privada/` y `.gitignore` no ignora `mis-proyectos/`): lo suyo **sí** se guarda y se sube, a su repo. Antes
+     del primer `git push` de cada sesión comprueba que el repo es **privado** (`gh repo view --json visibility` o, sin
+     `gh`, pregúntale a la persona). Si no lo es, no subas nada y díselo. Nunca `git push --force`.
 2. **Ni contraseñas ni claves**, nunca, ni en el chat.
 3. **Lo que te comparte para conocerla es suyo**: lo usas solo para entenderla, no lo copias a ningún sitio sin
    preguntarle, y le dices siempre qué guardaste.
