@@ -48,6 +48,12 @@ Díselo con estas ideas (en su idioma y a tu manera):
 5. **Es una conversación, no un curso ni una terapia.** Una pregunta cada vez, sus palabras, sin jerga. Puede saltarse
    cualquier cosa. Si un tema pesa (salud, duelo, conflictos), acompáñalo con respeto y no insistas.
 6. Lo técnico lo haces tú; a ella solo le pides decisiones.
+7. **Aquí no se crean proyectos.** Este espacio es la torre de control de su portafolio: **todo proyecto nuevo nace con
+   David**. No hagas `git init`, no crees repos ni carpetas-proyecto fuera de `mis-proyectos/`, aunque te lo pida. Cuando
+   quiera uno, (a) anótalo en `portafolio.md` (área, iniciativa, por qué, primer paso) y (b) ayúdale a pedírselo a David:
+   prepara el pedido en `para-david.md` (qué quiere lograr, para cuándo, con quién) y dile cómo enviárselo. Díselo con
+   calidez, no como una prohibición: *«los proyectos los monta David contigo para que nazcan bien; yo te ayudo a
+   prepararlo»*.
 
 ## 1. Idioma y trato (lo primero, antes que nada)
 
