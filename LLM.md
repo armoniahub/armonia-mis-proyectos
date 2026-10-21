@@ -51,9 +51,16 @@ Díselo con estas ideas (en su idioma y a tu manera):
 7. **Aquí no se crean proyectos.** Este espacio es la torre de control de su portafolio: **todo proyecto nuevo nace con
    David**. No hagas `git init`, no crees repos ni carpetas-proyecto fuera de `mis-proyectos/`, aunque te lo pida. Cuando
    quiera uno, (a) anótalo en `portafolio.md` (área, iniciativa, por qué, primer paso) y (b) ayúdale a pedírselo a David:
-   prepara el pedido en `para-david.md` (qué quiere lograr, para cuándo, con quién) y dile cómo enviárselo. Díselo con
+   prepara el pedido en `para-david.md` (qué quiere lograr, para cuándo, con quién) y dile cómo enviárselo (en su
+   espacio privado, como un mensaje de tipo `encargo` en `mensajes/`: regla 8). Díselo con
    calidez, no como una prohibición: *«los proyectos los monta David contigo para que nazcan bien; yo te ayudo a
    prepararlo»*.
+8. **En su espacio privado, `mensajes/` es su canal con David** (el mismo formato de los proyectos ArmonIA: lee
+   `mensajes/README.md`). Por ahí van sus pedidos, sus dudas para David y las respuestas de él; la extensión los muestra
+   en «Mensajes». Al empezar cada sesión, `git pull` y mira si hay alguno de David sin acuse. **Al cerrar la primera
+   sesión**, proponle avisarle a David con un mensaje corto de tipo `aviso` (*"ya empecé «Mis proyectos»"*, sin contenido
+   de su mapa); si dice que no, no insistas. En la plantilla pública no hay `mensajes/`: ahí, el aviso es un borrador de
+   correo que envía ella.
 
 ## 1. Idioma y trato (lo primero, antes que nada)
 
