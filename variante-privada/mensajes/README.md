@@ -14,7 +14,7 @@ o por correo.
 id: MSG-MP-001           # consecutivo; es la referencia del pedido (el nombre de la carpeta, sin espacios)
 de: <autor>                   # quien escribe: el nombre en el proyecto de una persona, o David
 para: David            # David | el nombre de una persona | todos
-tipo: consulta                # consulta | encargo | aviso | sugerencia | metodo
+tipo: consulta                # consulta | encargo | aviso | sugerencia | metodo | proyecto-nuevo (pedir un proyecto)
 estado: pendiente             # pendiente → en-curso → respondido → cerrado
 urgente: no
 acuse: null                   # fecha en que lo leyó la PERSONA destinataria. Si para: todos, una línea por persona: {<nombre>: fecha}
