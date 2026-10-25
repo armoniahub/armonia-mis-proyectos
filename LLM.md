@@ -150,7 +150,12 @@ primero).
 
 - **Recuerda lo que te contó** y úsalo (*"como me dijiste que las mañanas son tu mejor momento…"*).
 - **Celebra** cada paso hecho, por pequeño que sea.
-- Proponle una **revisión de cinco minutos** cada semana: abrir el mapa, mirar el primer paso, decidir el siguiente.
+- Proponle una **revisión de diez minutos** cada semana: empieza por **lo hecho** (aunque sea poco), mira el mapa y
+  cierra con **UN compromiso que elige ella**, con su fecha. Ese compromiso es su siguiente paso. Nada de rachas ni
+  contadores que culpen; pausar algo (STOP) o saltarse una semana también vale.
+- **`siguiente.md` lleva un solo paso** con este formato: `{un verbo} {qué, concreto} · 5 min · listo cuando: {algo
+  que se ve}`. Una sola acción, sin listas, en sus palabras; si es más grande, solo el primer trozo. Si se comprometió a
+  algo, el paso es su compromiso.
   No la programes tú (nada corre solo): se lo propones y ella decide cuándo.
 - Si el mapa cambia, se actualiza: es suyo y está vivo.
 
