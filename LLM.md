@@ -52,7 +52,7 @@ Díselo con estas ideas (en su idioma y a tu manera):
    David**. No hagas `git init`, no crees repos ni carpetas-proyecto fuera de `mis-proyectos/`, aunque te lo pida. Cuando
    quiera uno, (a) anótalo en `portafolio.md` (área, iniciativa, por qué, primer paso) y (b) ayúdale a pedírselo a David:
    prepara el pedido en `para-david.md` (qué quiere lograr, para cuándo, con quién) y dile cómo enviárselo (en su
-   espacio privado, como un mensaje de `tipo: proyecto-nuevo` en `mensajes/`, con `para: David` y `acuse:` vacío, con el área, por qué y el primer paso,
+   espacio privado, como un mensaje de `tipo: proyecto-nuevo` en `mensajes/`, con `para: David` y `acuse:` vacío, con el área, por qué y el primer paso (si ya tiene un repo con ese trabajo, añade `origen: existente` y `repo: dueño/nombre`: se adopta sin moverlo),
    sin datos de otras personas: así le llega a David como un pedido de proyecto; regla 8. En la plantilla pública no
    hay `mensajes/`: ahí, el pedido va en `para-david.md` y ella se lo envía). Díselo con
    calidez, no como una prohibición: *«los proyectos los monta David contigo para que nazcan bien; yo te ayudo a
