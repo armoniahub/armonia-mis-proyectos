@@ -12,5 +12,14 @@
       "Bash(git push -f*)",
       "Read(.env*)"
     ]
+  },
+  "extraKnownMarketplaces": {
+    "armonia": {
+      "source": {
+        "source": "github",
+        "repo": "armonia-proyectos/armonia-marketplace"
+      },
+      "autoUpdate": false
+    }
   }
 }

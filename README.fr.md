@@ -6,8 +6,8 @@ Ton premier espace dans ArmonIA : la **carte de ta vie et de tes projets**. Ouvr
 écris **commençons** : ton agent t'accompagne pour mettre en ordre tes objectifs, les domaines de ta vie et ce qui
 mérite de devenir un projet. Il te parle dans ta langue.
 
-**C'est pour faire quelque chose d'utile pendant que David, ton architecte, prépare la structure du projet que tu lui
-as décrit.** Ce que tu écris ici **reste sur ton ordinateur**. Quand David aura monté ton projet (sous 2 jours
-ouvrables), tu recevras un courriel avec ton code personnel, et ton agent transférera tout dans ton espace privé.
+**C'est ton point de départ : tu commences tout de suite, sans attendre personne.** Ce que tu écris ici **reste sur
+ton ordinateur** (ou dans ton espace privé, si tu l'as créé). Quand tu voudras transformer quelque chose en projet, ton
+agent t'aide à le demander ; quand il sera prêt, tu recevras un code pour l'ouvrir.
 
 Guide (en espagnol) : https://armonia.3spark.net/

@@ -6,8 +6,8 @@ Your first space in ArmonIA: the **map of your life and your projects**. Open it
 **let's start**: your agent helps you sort out your goals, the areas of your life, and what deserves to become a
 project. It speaks your language.
 
-**It's a way to do something valuable while David, your architect, sets up the structure of the project you told him
-about.** Whatever you write here **stays on your computer**. When David has your project ready (within 2 business
-days), you'll get an email with your personal code, and your agent will move everything to your private space.
+**It's your starting point: you begin right away, without waiting for anyone.** Whatever you write here **stays on
+your computer** (or in your private space, if you created one). When you want to turn something into a project, your
+agent helps you request it; when it's ready, you'll get a code to open it.
 
 Guide (in Spanish): https://armonia.3spark.net/
