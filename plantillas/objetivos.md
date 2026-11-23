@@ -1,5 +1,5 @@
 ---
-# Los objetivos de tu persona y, cuando lo firme, su rumbo de la temporada (LLM.md, sección 7).
+# Los objetivos de tu persona y, cuando lo firme, su rumbo de la temporada (la guía del agente, sección 7).
 # El mismo formato que en un proyecto de ArmonIA.
 # Tú copias este archivo: en su espacio privado, a la raíz del repo (objetivos.md); en una copia pública, a mis-proyectos/.
 # El bloque rumbo: se escribe solo cuando ella lo firmó (sección 7, pasos 3 y 4). Hasta entonces queda así, en comentario:
