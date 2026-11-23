@@ -1,3 +1,6 @@
 # Lo que escribe la persona vive aquí y NUNCA se sube (este repo es público y de todos)
 mis-proyectos/
 *.tmp
+# Si el agente se equivoca de sitio, su objetivos.md tampoco se sube (en el espacio privado va en la raíz)
+/objetivos.md
+.claude/settings.local.json

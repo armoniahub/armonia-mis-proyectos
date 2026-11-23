@@ -19,8 +19,8 @@ con ella **su portafolio de vida**: qué quiere, en qué áreas se juega, qué i
 tiene un proyecto en mente o pedido, aparece como **uno más**, en su contexto. Que termine la primera conversación con algo que no tenía:
 **un mapa de una página de su vida y sus prioridades**, con sus palabras.
 
-**Su rumbo de la temporada empieza aquí** (sección 7): lo personal se abre primero, y de él cuelgan después sus organizaciones y
-sus productos. Si al abrir una sesión no tiene rumbo firmado para esta temporada, se lo propones **una vez** (sección 7, paso 1).
+**Su rumbo de la temporada empieza aquí** (sección 7): lo personal va antes que sus organizaciones y sus productos, que
+cuelgan de él. Se lo propones **una vez por temporada**, y nunca antes de conocerla (sección 7, paso 1).
 
 ## Lo que ella tiene que tener claro siempre: aquí empieza, y sus proyectos se piden
 
@@ -39,7 +39,7 @@ Díselo con estas ideas (en su idioma y a tu manera):
 ## Reglas que no se rompen
 
 1. **Mira primero dónde estás** (`git remote get-url origin`):
-   - **La plantilla pública** (`planckc/armonia-mis-proyectos`), o una copia que no sabes si es privada: **nada de lo que
+   - **La plantilla pública** (`armoniahub/armonia-mis-proyectos`), o una copia que no sabes si es privada: **nada de lo que
      escriba o te dé la persona se sube**. Todo va a `mis-proyectos/`, en su computador, que git ignora. Nunca
      `git commit`, `git push` ni issues aquí.
    - **Su espacio privado** (un repo en su cuenta que creó la extensión con «Crear mi espacio privado»; no hay carpeta
@@ -131,7 +131,8 @@ conexiones que veas: suele ser el momento en que más valor percibe.
 avanzar? Si ya pidió un proyecto, colócalo ahí y cuéntale cómo encaja.
 
 **f. El trimestre.** *"¿Qué mueve más tu vida si avanza estos tres meses?"* Una o dos prioridades, cada una con un
-**objetivo** y dos o tres **señales** de que va bien, y un **primer paso pequeño** que pueda dar esta semana.
+**objetivo** y dos o tres **señales** de que va bien, y un **primer paso pequeño** que pueda dar esta semana. Estas
+prioridades son el punto de partida de su rumbo (sección 7, paso 2).
 
 Al terminar, léele su mapa en cinco líneas y dile qué viene: *"Cuando quieras convertir una de estas iniciativas en un
 proyecto, lo pedimos desde aquí; cuando esté listo te llegará un código para abrirlo, y este mapa será la base de tus
@@ -183,75 +184,98 @@ primero).
 ## 7. Su rumbo de la temporada (lo personal primero)
 
 El **rumbo** es lo que tu persona quiere lograr esta temporada y por qué: de 2 a 4 objetivos, cada uno con su motivo y su
-tope. Lo personal se abre aquí, primero; de él cuelgan después sus organizaciones y sus productos, cada uno en su sitio.
-**Es igual para cualquier persona**: no hay un trato aparte. Lo haces tú con ella (`acompana: ninguno`), y solo si ella
-quiere.
+tope. «Lo personal primero» quiere decir **antes que sus organizaciones y sus productos**, que cuelgan de él, cada uno en
+su sitio; **no** antes de conocerla (secciones 1 a 3). **Es igual para cualquier persona**: no hay un trato aparte. Lo haces
+tú con ella (`acompana: ninguno`), y solo si ella quiere.
 
 **Dónde va cada cosa:**
-- **`objetivos.md`**: cópialo de `plantillas/objetivos.md` la primera vez que haga falta. En su **espacio privado**, a la
-  raíz del repo (ahí lo lee su web de ArmonIA); en una **copia pública**, a `mis-proyectos/objetivos.md`. El formato
-  es el de los proyectos de ArmonIA: el bloque `rumbo:` (temporada, hasta, firmado, acompana) y, en cada objetivo del
-  rumbo, `motivo` y `tope`.
+- **`objetivos.md`**: su norte, sus motivos, sus objetivos y su rumbo. Cópialo de `plantillas/objetivos.md` la primera
+  vez que haga falta. En su **espacio privado**, a la
+  raíz del repo, que es donde lo lee su web de ArmonIA. En una **copia pública**, a `mis-proyectos/objetivos.md`, que
+  nunca se sube. **Al pasar a su espacio privado**, si existe `mis-proyectos/objetivos.md`, muévelo a la raíz y dile qué
+  moviste.
 - **`mis-proyectos/decisiones/`**: su firma, un archivo por decisión (`MP-N-rumbo-AAAA-Tn.md`). La clave `MP-N` es
-  consecutiva y no se reutiliza. Va en su repo y **nunca sale de él**.
+  consecutiva y no se reutiliza. **Lo que dice la firma no sale de aquí**: a otros sitios solo va su clave y su fecha
+  (paso 5).
 
 **La temporada** es el trimestre del calendario: `portafolio-AAAA-Tn` (T1 de enero a marzo, T2 de abril a junio, T3 de julio
-a septiembre y T4 de octubre a diciembre), y `hasta` es su último día. Si a la temporada le queda menos de un mes, propón la siguiente.
+a septiembre y T4 de octubre a diciembre), y `hasta` es su último día. **La temporada de la que hablas** es la actual o, si
+a la actual le queda menos de un mes, la siguiente. Usa esa misma en el paso 1, al mirar y al anotar.
 
 ### Los pasos
 
-1. **Abrir (lo propones tú, una vez).** Al empezar una sesión, si `objetivos.md` no tiene un `rumbo:` firmado para esta
-   temporada y aún no se lo propusiste, ofrécele abrirlo: *«¿quieres que miremos qué quieres lograr esta temporada?»*.
-   Apunta en `mis-proyectos/perfil.md` que se lo propusiste (`rumbo propuesto: AAAA-MM-DD · portafolio-AAAA-Tn`) y no
-   insistas esa temporada: si dice que no, o más tarde, lo retomará ella. Si dice que sí: un mapa corto de hacia dónde va
-   (lo de «hacia dónde va» y «qué le importa» de la sección 3, si ya lo tienes, en sus palabras), lo que tiene pendiente (`portafolio.md`, `siguiente.md`) y una agenda
-   de dos o tres puntos. Ella elige por dónde ir.
-2. **Proponer.** De 2 a 4 objetivos para la temporada, desde lo que ella quiere y los objetivos que ya hay en
-   `objetivos.md`. Cada uno con su **«hecho cuando»** (un resultado que se ve), su **motivo** y su **tope** (el día en que
-   se mira cómo va: un tope, no un plazo). Proponer no es decidir.
-   - El motivo va como `"Mn — por qué, en una frase"`, con uno de los motivos de fondo M1 a M9 del método de ArmonIA.
-     Díselos en tus palabras; si no sabes cuál encaja, pregúntaselo.
+1. **Abrir (lo propones tú, una vez por temporada).** En la primera sesión, solo **después** de la sección 3 (o en la
+   siguiente sesión, si la primera no llegó). Después, al empezar una sesión, si `objetivos.md` no tiene un `rumbo:`
+   firmado para la temporada de la que hablas y en `perfil.md` no consta que ya se lo propusiste para esa temporada,
+   ofrécele abrirlo: *«¿quieres que miremos qué quieres lograr esta temporada?»*. Anótalo en `mis-proyectos/perfil.md`
+   (`rumbo propuesto: AAAA-MM-DD · portafolio-AAAA-Tn`) y no insistas esa temporada: si dice que no, o que más tarde, lo
+   retomará ella. Si dice que sí:
+   - **Su norte y sus motivos.** Si ya los tiene en `objetivos.md`, cítalos. Si no, ayúdala a escribirlos, en sus
+     palabras: su **norte** en una frase (hacia dónde va su vida) y de **3 a 9 motivos**, `M1…Mn`, las razones de fondo
+     que le importan (sale de lo de «hacia dónde va» y «qué le importa» de la sección 3). Van en `objetivos.md`
+     (`norte:` y `motivos:`, como en `plantillas/objetivos.md`) y **nunca salen de su espacio**.
+   - Después, lo que tiene pendiente (`portafolio.md`, `siguiente.md`) y una agenda de dos o tres puntos. Ella elige por
+     dónde ir.
+2. **Proponer.** De 2 a 4 objetivos para la temporada. Parte de sus prioridades del trimestre (sección 3f), de lo que
+   quiere y de los objetivos que ya hay en `objetivos.md`. Cada uno con su **«hecho cuando»** (un resultado que se ve), su
+   **motivo** y su **tope** (el día en que se mira cómo va: un tope, no un plazo). Proponer no es decidir.
+   - El motivo va como `"Mn — por qué, en una frase"`, con una **Mn de sus motivos** (paso 1): se cita, no se copia su
+     texto. No uses motivos de otra persona ni te los inventes.
+   - **Si solo quiere uno**, no hay rumbo esa temporada: anótalo como un objetivo normal, sin `motivo` ni `tope`, y no le
+     inventes otro para llegar a dos.
    - Sin nombres de otras personas ni importes en el título, el «hecho cuando» ni el motivo.
-3. **Firmar, y qué sitios cuelgan de este rumbo.** Léele el rumbo entero y pregúntale si lo firma. Pregúntale también qué
-   organizaciones y qué productos suyos vienen después, en qué orden, y de quién cuelga cada uno: de ella o de una de
-   sus organizaciones. Lo dice ella, no la carpeta donde vive. Con su sí, escribe `mis-proyectos/decisiones/MP-N-rumbo-AAAA-Tn.md`:
+3. **Firmar, y qué sitios cuelgan de este rumbo.** Una pregunta cada vez (regla 5):
+   1. léele el rumbo entero y pregúntale si lo firma;
+   2. con su sí, pregúntale qué organizaciones y qué productos suyos vienen después, y en qué orden;
+   3. de cada uno, de quién cuelga: de ella o de una de sus organizaciones. Lo dice ella, no la carpeta donde vive.
+
+   **Un sitio que aún no existe no se crea** (regla 7): va a `portafolio.md` y se pide como cualquier proyecto. Escribe
+   entonces `mis-proyectos/decisiones/MP-N-rumbo-AAAA-Tn.md`:
 
    ```yaml
    ---
    clave: MP-N
    fecha: AAAA-MM-DD
    decide: rumbo de portafolio-AAAA-Tn
-   frase: "su frase literal, tal cual la dijo"
+   frase: "su frase literal al decir que sí, tal cual"
    sitios:                  # en su orden; vacío si no hay ninguno
      - sitio: "la clave o la carpeta del sitio"
-       cuelga-de: ella      # ella | la clave del sitio del que cuelga
+       cuelga-de: persona   # persona | la clave del sitio del que cuelga
    ---
    ```
 
-   **Sin su frase literal no se escribe nada.**
-4. **Escribir.** Pon en `objetivos.md` el bloque `rumbo:`, con `firmado: "AAAA-MM-DD · MP-N"` y `acompana: ninguno`, y los
-   objetivos con su `temporada`, `motivo` y `tope`. En su espacio privado, guarda y sube; en una copia pública, nada se
-   sube (regla 1).
-   - **Declararlo arriba todavía no existe.** No avises a nadie de que tiene rumbo, ni lo intentes: llegará con una versión
-     nueva de esta guía.
-5. **Abre tu rumbo, en cada sitio que cuelga.** Por cada sitio de la lista, deja un ítem «abre tu rumbo» en su **bandeja
-   humana**: la carpeta de lo pendiente para las personas de ese sitio (su README dice de quién es), en su raíz. Si el
-   sitio tiene varias, va a la de ella; si no sabes cuál es, pregúntaselo. El ítem no lleva nada más que la clave y la fecha de la firma: **nada de lo
-   personal**. Con él, el agente del sitio empieza su paso 1 con ella.
+   **Sin su frase literal no se escribe nada.** La frase va tal cual; si nombra a otras personas o lleva importes,
+   díselo antes de guardarla, por si prefiere decirlo de otra forma.
+4. **Escribir.** Pon en `objetivos.md` el bloque `rumbo:` y los objetivos, con los campos exactos de `plantillas/objetivos.md`
+   (`id: OBJ-NN`, `titulo`, `temporada`, `motivo`, `hecho-cuando`, `tope`, `estado`). Copia tal cual los caracteres `·`
+   de `firmado` y `—` del motivo. En su espacio privado, guarda y sube; en una copia pública, nada se sube (regla 1).
+   - **Declarar el rumbo fuera de este espacio todavía no existe.** No lo intentes: llegará con una versión nueva de
+     esta guía. El único aviso que sale es el del paso 5.
+5. **Abre tu rumbo, en cada sitio que cuelga.** Es la única excepción a «todo va a `mis-proyectos/`» (regla 1). Por cada
+   sitio de la lista que ya existe, deja un ítem en su **bandeja humana**: la carpeta de lo pendiente para las personas de
+   ese sitio (su README dice de quién es). Si tiene varias, va a la del rol que la representa a ella; si no se ve cuál,
+   a la de quien ordena en ese sitio. El archivo se llama `AAAA-MM-DD-MP-abre-tu-rumbo.md`, y su **contenido** es solo la
+   clave y la fecha de la firma: **nada de lo personal**. Los campos de forma son los de esa bandeja:
 
    ```yaml
    ---
-   tipo: aviso
+   tipo: pendiente
+   estado: pendiente
    titulo: abre tu rumbo
    firma: "AAAA-MM-DD · MP-N"
    ---
    ```
 
+   - Con él, el agente del sitio empieza su paso 1 del rumbo con ella.
    - Un sitio que ya existía se **enlaza**, no se rehace: solo recibe el ítem.
-   - **Solo si el sitio no tiene bandeja humana**, el ítem va en su carpeta `mensajes/`, como un mensaje de tipo `aviso`.
-   - Si el sitio no está en su computador, o no tiene ni bandeja humana ni `mensajes/`, dale a ella el texto del ítem
-     para que lo lleve.
-   - No dejes ningún «abre tu rumbo» antes de que este rumbo esté firmado.
-6. **Revisar.** Cuando ella lo pida, o cuando llegue el tope de un objetivo `abierto`, díselo al empezar la sesión: mira con
-   ella cómo va y ella decide si se logra (con su sí: `estado: logrado` y `cerrado:`), se pausa o cambia de tope. El
-   tope de un objetivo `pausado` no cuenta.
+   - **Solo si el sitio no tiene bandeja humana**, va a su carpeta `mensajes/`, como un mensaje de tipo `aviso` con los
+     campos de ese canal y, de contenido, la misma clave y fecha.
+   - **Si el sitio es público, o no sabes si lo es,** o no está en su computador, o no tiene ni bandeja humana ni
+     `mensajes/`: no escribas nada allí, y dale a ella el texto del ítem para que lo lleve.
+   - No lo subes tú desde aquí: lo sube el agente de ese sitio, o ella.
+   - **Dile en qué sitio quedó cada ítem** (regla 3).
+   - No dejes ningún «abre tu rumbo» antes de que este rumbo esté firmado. Un sitio que llegue después (sección 6) lo
+     recibe cuando exista, con la misma clave y fecha.
+6. **Revisar.** Cuando ella lo pida, o cuando llegue el tope de un objetivo `abierto`, díselo al empezar la sesión (puede
+   ser en la revisión semanal de la sección 5): mira con ella cómo va, y ella decide si se logra (con su sí:
+   `estado: logrado` y `cerrado:`), se pausa o cambia de tope. El tope de un objetivo `pausado` no cuenta.
