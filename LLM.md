@@ -198,14 +198,15 @@ tú con ella (`acompana: ninguno`), y solo si ella quiere.
   consecutiva y no se reutiliza. **Lo que dice la firma no sale de aquí**: a otros sitios solo va su clave y su fecha
   (paso 5).
 
-**La temporada** es el trimestre del calendario: `portafolio-AAAA-Tn` (T1 de enero a marzo, T2 de abril a junio, T3 de julio
-a septiembre y T4 de octubre a diciembre), y `hasta` es su último día. **La temporada de la que hablas** es la actual o, si
+**La temporada** lleva la etiqueta del trimestre del calendario en que empieza: `portafolio-AAAA-Tn` (T1 de enero a
+marzo, T2 de abril a junio, T3 de julio a septiembre y T4 de octubre a diciembre). **Su fin, `hasta`, lo firma ella**:
+por defecto, el último día de ese trimestre, y puede pasarse unas semanas si así lo quiere. **La temporada de la que hablas** es la actual o, si
 a la actual le queda menos de un mes, la siguiente. Usa esa misma en el paso 1, al mirar y al anotar.
 
 ### Los pasos
 
-1. **Abrir (lo propones tú, una vez por temporada).** En la primera sesión, solo **después** de la sección 3 (o en la
-   siguiente sesión, si la primera no llegó). Después, al empezar una sesión, si `objetivos.md` no tiene un `rumbo:`
+1. **Abrir (lo propones tú, una vez por temporada).** Solo cuando ya la conoces: cuando existen su `perfil.md` y su
+   `mapa.md` (secciones 2 a 4). En la primera sesión, al final de la sección 3; si no llegó, en la siguiente. Después, al empezar una sesión, si `objetivos.md` no tiene un `rumbo:`
    firmado para la temporada de la que hablas y en `perfil.md` no consta que ya se lo propusiste para esa temporada,
    ofrécele abrirlo: *«¿quieres que miremos qué quieres lograr esta temporada?»*. Anótalo en `mis-proyectos/perfil.md`
    (`rumbo propuesto: AAAA-MM-DD · portafolio-AAAA-Tn`) y no insistas esa temporada: si dice que no, o que más tarde, lo
@@ -213,7 +214,8 @@ a la actual le queda menos de un mes, la siguiente. Usa esa misma en el paso 1, 
    - **Su norte y sus motivos.** Si ya los tiene en `objetivos.md`, cítalos. Si no, ayúdala a escribirlos, en sus
      palabras: su **norte** en una frase (hacia dónde va su vida) y de **3 a 9 motivos**, `M1…Mn`, las razones de fondo
      que le importan (sale de lo de «hacia dónde va» y «qué le importa» de la sección 3). Van en `objetivos.md`
-     (`norte:` y `motivos:`, como en `plantillas/objetivos.md`) y **nunca salen de su espacio**.
+     (`norte:` y `motivos:`, como en `plantillas/objetivos.md`) y **nunca salen de su espacio**. En su espacio privado
+     **los ve también David**, como todo lo que se sube (regla 1): díselo antes de escribirlos.
    - Después, lo que tiene pendiente (`portafolio.md`, `siguiente.md`) y una agenda de dos o tres puntos. Ella elige por
      dónde ir.
 2. **Proponer.** De 2 a 4 objetivos para la temporada. Parte de sus prioridades del trimestre (sección 3f), de lo que
@@ -225,7 +227,8 @@ a la actual le queda menos de un mes, la siguiente. Usa esa misma en el paso 1, 
      inventes otro para llegar a dos.
    - Sin nombres de otras personas ni importes en el título, el «hecho cuando» ni el motivo.
 3. **Firmar, y qué sitios cuelgan de este rumbo.** Una pregunta cada vez (regla 5):
-   1. léele el rumbo entero y pregúntale si lo firma;
+   1. léele el rumbo entero y pregúntale si lo firma. **Sin su norte y sus motivos escritos en `objetivos.md` no hay
+      firma**: vuelve al paso 1;
    2. con su sí, pregúntale qué organizaciones y qué productos suyos vienen después, y en qué orden;
    3. de cada uno, de quién cuelga: de ella o de una de sus organizaciones. Lo dice ella, no la carpeta donde vive.
 
@@ -253,8 +256,8 @@ a la actual le queda menos de un mes, la siguiente. Usa esa misma en el paso 1, 
      esta guía. El único aviso que sale es el del paso 5.
 5. **Abre tu rumbo, en cada sitio que cuelga.** Es la única excepción a «todo va a `mis-proyectos/`» (regla 1). Por cada
    sitio de la lista que ya existe, deja un ítem en su **bandeja humana**: la carpeta de lo pendiente para las personas de
-   ese sitio (su README dice de quién es). Si tiene varias, va a la del rol que la representa a ella; si no se ve cuál,
-   a la de quien ordena en ese sitio. El archivo se llama `AAAA-MM-DD-MP-abre-tu-rumbo.md`, y su **contenido** es solo la
+   ese sitio (su README dice de quién es). Si tiene varias y su README no deja claro cuál es la suya, **pregúntaselo**
+   antes de escribir. El archivo se llama `AAAA-MM-DD-MP-abre-tu-rumbo.md`, y su **contenido** es solo la
    clave y la fecha de la firma: **nada de lo personal**. Los campos de forma son los de esa bandeja:
 
    ```yaml
