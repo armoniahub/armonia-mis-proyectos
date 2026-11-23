@@ -234,12 +234,23 @@ a septiembre y T4 de octubre a diciembre), y `hasta` es su último día. Si a la
    sube (regla 1).
    - **Declararlo arriba todavía no existe.** No avises a nadie de que tiene rumbo, ni lo intentes: llegará con una versión
      nueva de esta guía.
-5. **Abre tu rumbo, en cada sitio que cuelga.** Por cada sitio de la lista que tenga su bandeja humana en su computador
-   (en un proyecto de ArmonIA, su carpeta `mensajes/`), deja allí un mensaje de tipo `aviso` para el agente del sitio. Su
-   título es «abre tu rumbo» y no lleva nada más que la clave y la fecha de la firma (`MP-N · AAAA-MM-DD`): **nada de lo
+5. **Abre tu rumbo, en cada sitio que cuelga.** Por cada sitio de la lista, deja un ítem «abre tu rumbo» en su **bandeja
+   humana**: la carpeta de lo pendiente para las personas de ese sitio (su README dice de quién es), en su raíz. Si el
+   sitio tiene varias, va a la de ella; si no sabes cuál es, pregúntaselo. El ítem no lleva nada más que la clave y la fecha de la firma: **nada de lo
    personal**. Con él, el agente del sitio empieza su paso 1 con ella.
-   - Un sitio que ya existía se **enlaza**, no se rehace: solo recibe el aviso.
-   - Si el sitio no está en su computador o no tiene bandeja, dale a ella el texto del aviso para que lo lleve.
+
+   ```yaml
+   ---
+   tipo: aviso
+   titulo: abre tu rumbo
+   firma: "AAAA-MM-DD · MP-N"
+   ---
+   ```
+
+   - Un sitio que ya existía se **enlaza**, no se rehace: solo recibe el ítem.
+   - **Solo si el sitio no tiene bandeja humana**, el ítem va en su carpeta `mensajes/`, como un mensaje de tipo `aviso`.
+   - Si el sitio no está en su computador, o no tiene ni bandeja humana ni `mensajes/`, dale a ella el texto del ítem
+     para que lo lleve.
    - No dejes ningún «abre tu rumbo» antes de que este rumbo esté firmado.
 6. **Revisar.** Cuando ella lo pida, o cuando llegue el tope de un objetivo `abierto`, díselo al empezar la sesión: mira con
    ella cómo va y ella decide si se logra (con su sí: `estado: logrado` y `cerrado:`), se pausa o cambia de tope. El
