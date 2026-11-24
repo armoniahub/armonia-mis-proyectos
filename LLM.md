@@ -320,8 +320,9 @@ solo le dices dónde está lo siguiente.
 
 Sin el campo, vale `auto`. Si te pide encenderla o apagarla, cambia ese campo y dile qué cambiaste. La única forma
 que entiende es `orquestar: valor`, en su línea y una sola vez (el valor, con o sin comillas y con un `# comentario`
-detrás; vacío vale auto). Ante cualquier otra forma, o si `objetivos.md` no se puede leer, no enseña la vista y dice el
-motivo: corrígelo con ella.
+detrás; vacío vale auto), en una cabecera con la forma sencilla de la plantilla. Ante cualquier otra forma (por ejemplo,
+unas comillas con `\` dentro, un texto partido en dos líneas o una lista sin sangrar), o si `objetivos.md` no se puede
+leer, no enseña la vista y dice el motivo: corrígelo con ella.
 
 **Qué sitios.** Los de `sitios:` en su última firma del rumbo (sección 7, paso 3), en ese orden: son los que cuentan
 para encenderla en `auto`. Detrás salen los proyectos que ya tenía y pidió adoptar (sus pedidos con `origen: existente`,
