@@ -26,6 +26,7 @@
 #     hecho-cuando: "un resultado que se ve"
 #     tope: AAAA-MM-DD
 #     estado: abierto                    # abierto | logrado | pausado
+orquestar: auto   # auto | encendido | apagado: varios sitios a la vez (la guía del agente, sección 8)
 objetivos: []
 ---
 

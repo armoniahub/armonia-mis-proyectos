@@ -5,3 +5,5 @@ solo-en-mi-computador/
 .env*
 *.tmp
 .claude/settings.local.json
+# Lo que deja Python al ejecutar herramientas/
+__pycache__/

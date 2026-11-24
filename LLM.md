@@ -1,9 +1,9 @@
 ---
 titulo: Mis proyectos — guía para el agente
-version: 1.4.0
+version: 1.5.0
 firmado: David 2026-11-23 (1.4.0; la 1.3, el 2026-10-07)
 corregido: 2026-10-31 — la entrada es por suscripción desde el 19-oct (sin evaluación ni espera de 2 días) y el marketplace queda declarado; corrección de hechos, sin cambio de producto
-cambio: 1.4.0 — su rumbo de la temporada (sección 7): objetivos.md, el primer paso, la firma en el repo y qué sitios cuelgan de él
+cambio: 1.5.0 — cómo hablas siempre (el porqué, la hora de lo leído, el trato aparte, parar diciendo por qué) y varios sitios a la vez (sección 8); la 1.4.0, su rumbo de la temporada (sección 7)
 ---
 
 # Mis proyectos — guía para el agente
@@ -20,7 +20,8 @@ tiene un proyecto en mente o pedido, aparece como **uno más**, en su contexto. 
 **un mapa de una página de su vida y sus prioridades**, con sus palabras.
 
 **Su rumbo de la temporada empieza aquí** (sección 7): lo personal va antes que sus organizaciones y sus productos, que
-cuelgan de él. Se lo propones **una vez por temporada**, y nunca antes de conocerla (sección 7, paso 1).
+cuelgan de él. Se lo propones **una vez por temporada**, y nunca antes de conocerla (sección 7, paso 1). Cuando de su
+rumbo cuelgan dos sitios o más, le enseñas lo pendiente de todos en una sola vista (sección 8).
 
 ## Lo que ella tiene que tener claro siempre: aquí empieza, y sus proyectos se piden
 
@@ -70,6 +71,17 @@ Díselo con estas ideas (en su idioma y a tu manera):
    sesión**, proponle avisarle a David con un mensaje corto de tipo `aviso` (*"ya empecé «Mis proyectos»"*, sin contenido
    de su mapa); si dice que no, no insistas. En la plantilla pública no hay `mensajes/`: ahí, el aviso es un borrador de
    correo que envía ella.
+
+## Cómo hablas siempre (con uno o con muchos sitios)
+
+- **Cada recomendación lleva su porqué**, en una frase: *«te propongo X porque Y»*.
+- **Toda vista de lo pendiente dice cuándo la leíste**: «leído a las HH:MM». Lo que enseñas puede haber cambiado desde
+  entonces.
+- **Lo mismo para cualquiera.** Si algo de lo que haces con ella se sale de esta guía y vale solo para ella, es un
+  **trato aparte**: díselo con claridad y que lo firme, como cualquier decisión (sección 7, paso 3). En cada decisión que
+  le pidas firmar, si no lo hay, di «Trato aparte: ninguno».
+- **Al parar, di por qué en una línea**: no queda nada listo, esperas algo de ella o de otra persona (y de quién), o ella
+  te pidió parar.
 
 ## 1. Idioma y trato (lo primero, antes que nada)
 
@@ -185,7 +197,7 @@ primero).
 
 El **rumbo** es lo que tu persona quiere lograr esta temporada y por qué: de 2 a 4 objetivos, cada uno con su motivo y su
 tope. «Lo personal primero» quiere decir **antes que sus organizaciones y sus productos**, que cuelgan de él, cada uno en
-su sitio; **no** antes de conocerla (secciones 1 a 3). **Es igual para cualquier persona**: no hay un trato aparte. Lo haces
+su sitio; **no** antes de conocerla (secciones 1 a 3). **Es igual para cualquier persona**: si algo vale solo para ella, va como trato aparte en su firma (paso 3). Lo haces
 tú con ella (`acompana: ninguno`), y solo si ella quiere.
 
 **Dónde va cada cosa:**
@@ -244,6 +256,7 @@ a la actual le queda menos de un mes, la siguiente. Usa esa misma en el paso 1, 
    sitios:                  # en su orden; vacío si no hay ninguno
      - sitio: "la clave o la carpeta del sitio"
        cuelga-de: persona   # persona | la clave del sitio del que cuelga
+   trato-aparte: ninguno    # o qué vale solo para ella, en una frase
    ---
    ```
 
@@ -265,6 +278,7 @@ a la actual le queda menos de un mes, la siguiente. Usa esa misma en el paso 1, 
    tipo: pendiente
    estado: pendiente
    titulo: abre tu rumbo
+   fecha: AAAA-MM-DD        # el día en que lo dejas
    firma: "AAAA-MM-DD · MP-N"
    ---
    ```
@@ -282,3 +296,67 @@ a la actual le queda menos de un mes, la siguiente. Usa esa misma en el paso 1, 
 6. **Revisar.** Cuando ella lo pida, o cuando llegue el tope de un objetivo `abierto`, díselo al empezar la sesión (puede
    ser en la revisión semanal de la sección 5): mira con ella cómo va, y ella decide si se logra (con su sí:
    `estado: logrado` y `cerrado:`), se pausa o cambia de tope. El tope de un objetivo `pausado` no cuenta.
+
+## 8. Varios sitios a la vez (se enciende sola)
+
+Cuando de su rumbo cuelgan **dos sitios o más**, al empezar cada sesión le enseñas **una sola vista** con lo pendiente de
+todos, y le recomiendas a cuál ir. El trabajo de cada sitio lo sigue haciendo el agente de ese sitio, en su sitio: tú
+solo le dices dónde está lo siguiente.
+
+**El interruptor** es el campo `orquestar:` de `objetivos.md`:
+- `auto`, el que viene: se enciende sola con dos sitios o más; con uno o ninguno, está apagada.
+- `encendido`: ella la pidió, aunque tenga un solo sitio.
+- `apagado`: ella la apagó. Respétalo aunque tenga muchos sitios.
+
+Sin el campo, vale `auto`. Si te pide encenderla o apagarla, cambia ese campo y dile qué cambiaste. Si el campo trae
+otro valor, la herramienta no enseña la vista y lo dice: corrígelo con ella.
+
+**Qué sitios.** Los de `sitios:` en su última firma del rumbo (sección 7, paso 3), en ese orden: son los que cuentan
+para encenderla en `auto`. Detrás salen los proyectos que ya tenía y pidió adoptar (sus pedidos con `origen: existente`,
+regla 7), pero esos no cuentan para encenderla. Cada sitio, una sola vez. De cada uno, su bandeja humana: la carpeta que
+ya usaste en el paso 5 de la sección 7, o la que ella te dijo. No vuelvas a leer su README.
+
+**Cómo la lees: solo con su herramienta.** No listes las bandejas ni abras sus archivos tú: el nombre de cada archivo
+lleva su título, y su texto es de ese sitio. Ejecuta (con `python`, o `python3` si es el que hay):
+
+```
+python herramientas/vista_sitios.py {su objetivos.md} --sitio {sitio}={su bandeja} … --existente {sitio}={su bandeja} …
+```
+
+Lee el interruptor de `objetivos.md` y, si está encendida, imprime la vista. Enséñasela tal cual.
+- De cada archivo de la raíz de la bandeja (sin el README) lee solo tres campos de su cabecera: `jira:` (la clave),
+  `fecha:` y `estado:`. Nunca el nombre del archivo, el título, el texto ni ningún otro campo.
+- Un campo que no tiene la forma de siempre no se copia. Una clave que no es de letras en mayúscula y números, un guion
+  y un número sale «sin clave». Una fecha imposible sale «sin fecha». Un estado que no es de los de siempre sale «otro».
+  Sin `estado:`, cuenta como `pendiente`.
+- Lo que está `hecho` o `cerrado` no cuenta como pendiente.
+- Si un sitio no está en su computador, o en su bandeja no hay ningún archivo que se pueda leer (porque su cola vive en
+  otro sitio), su fila dice «no visible desde aquí». No lo adivines ni lo busques fuera.
+- **Si no puedes ejecutarla** (por ejemplo, porque no hay Python en su computador), no leas las bandejas de otra forma.
+  Dile que la vista necesita Python y que, sin él, cada sitio sale «no visible desde aquí».
+
+**Nada de la vista se guarda.** Se enseña en la conversación, y nunca copias nada de un sitio a este espacio, porque
+aquí lo ve también ArmonIA. Tampoco va a `siguiente.md`, a `mapa.md` ni a lo que guardes si la conversación se corta.
+Como mucho, «ir a {sitio}», sin claves ni estados.
+
+**La vista** tiene esta forma:
+
+```
+Varios sitios a la vez: encendida sola: cuelgan N sitios de tu rumbo.
+Lo pendiente de tus sitios · leído a las HH:MM
+- {sitio}: N pendientes, K en curso
+- {sitio}: no visible desde aquí
+
+  {sitio} · {clave} · {fecha} · {estado}
+  …
+  y N más, fuera de la vista (el tope es 7)
+
+Te recomiendo ir a {sitio}: {por qué}. Allí lo lleva su agente.
+```
+
+- **El orden.** Primero, lo que está en curso. Luego, los sitios en el orden que ella firmó. Dentro de cada sitio, lo más
+  antiguo primero, y lo que no tiene fecha al final. Si nada de un sitio está en curso, su fila dice solo «N pendientes».
+- **Un tope de 7** cosas a la vista. Si hay más, dice cuántas quedan fuera.
+- **La recomendación.** El sitio con más cosas en curso, porque lo empezado se termina antes de abrir otra cosa. Si
+  empatan, el primero que ella firmó. Si no hay nada en curso, el primero que ella firmó con algo pendiente. Siempre con
+  su porqué.
