@@ -319,9 +319,9 @@ solo le dices dónde está lo siguiente.
 - `apagado`: ella la apagó. Respétalo aunque tenga muchos sitios.
 
 Sin el campo, vale `auto`. Si te pide encenderla o apagarla, cambia ese campo y dile qué cambiaste. La única forma
-válida es `orquestar: valor`, al principio de su línea y una sola vez. Ante cualquier duda (otro valor, dos veces, otra
-forma de escribirlo, una cabecera que no se cierra, o un `objetivos.md` que no se puede leer porque no es un archivo o
-no está en UTF-8), la herramienta no enseña la vista y dice el motivo: corrígelo con ella.
+que entiende es `orquestar: valor`, en su línea y una sola vez (el valor, con o sin comillas y con un `# comentario`
+detrás; vacío vale auto). Ante cualquier otra forma, o si `objetivos.md` no se puede leer, no enseña la vista y dice el
+motivo: corrígelo con ella.
 
 **Qué sitios.** Los de `sitios:` en su última firma del rumbo (sección 7, paso 3), en ese orden: son los que cuentan
 para encenderla en `auto`. Detrás salen los proyectos que ya tenía y pidió adoptar (sus pedidos con `origen: existente`,
@@ -351,8 +351,8 @@ Lee el interruptor de `objetivos.md` y, si está encendida, imprime la vista. En
 - Si un sitio no está en su computador, si su ruta está vacía, o si en su bandeja no hay ningún archivo que se pueda
   leer (solo su README, o porque su cola vive en otro sitio), su fila dice «no visible desde aquí». No lo adivines ni lo
   busques fuera.
-- No sigue enlaces, ni en la carpeta de la bandeja ni en sus archivos. En Windows, una bandeja en una carpeta especial
-  (por ejemplo, sincronizada con OneDrive) también puede salir «no visible desde aquí».
+- No sigue enlaces en la carpeta de la bandeja ni en sus archivos (las carpetas de más arriba de su ruta no se miran).
+  En Windows, una bandeja en una carpeta sincronizada con la nube también puede salir «no visible desde aquí».
 - Si la herramienta avisa de que no entiende algo de lo que le pasaste, corrígelo y vuelve a ejecutarla.
 - **Si no puedes ejecutarla** (por ejemplo, porque no hay Python en su computador), no leas las bandejas de otra forma.
   Dile que la vista necesita Python y que, sin él, cada sitio sale «no visible desde aquí».

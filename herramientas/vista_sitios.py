@@ -115,8 +115,10 @@ def normalizar(v) -> str | None:
 
 _SALTOS_RAROS = re.compile("[\x0b\x0c\x1c\x1d\x1e\x85\u2028\u2029]")   # otros saltos de línea: duda
 _NOMBRA_ORQUESTAR = re.compile(r"""orquestar["']?\s*:""", re.I)
-# La única forma válida: al principio de la línea, sin nada detrás o con espacio y valor, y si acaso espacio y #comentario.
-_ORQUESTAR = re.compile(r"""orquestar:(?:[ \t]+("[^"]*"|'[^']*'|[^\s#"']+))?(?:[ \t]+#.*)?[ \t]*""")
+# La única forma válida: en la columna 0, sin nada detrás o con espacios y valor, y si acaso espacios y #comentario.
+_ORQUESTAR = re.compile(r"""orquestar:(?: +("[^"\\]*"|'[^']*'|[^\s#"']+))?(?: +#.*)? *""")
+# Una línea de la columna 0 que empieza así no es una clave corriente de YAML (o abre algo que cambia cómo se lee): duda.
+_RARA_EN_COLUMNA_0 = re.compile(r"""[?:*&!"'{\[%@`|>\-.]|<<""")
 
 
 def _nombra_orquestar(linea: str) -> bool:
@@ -124,35 +126,128 @@ def _nombra_orquestar(linea: str) -> bool:
     return not linea.lstrip().startswith("#") and bool(_NOMBRA_ORQUESTAR.search(linea))
 
 
+def _es_texto(linea: str) -> bool:
+    """¿Lleva algo que no sea espacio ni un comentario entero?"""
+    return bool(linea.strip()) and not linea.lstrip().startswith("#")
+
+
+_CLAVE_YAML = re.compile(r"[A-Za-z_][A-Za-z0-9_-]*:")
+_SIGNOS = "-?:,[]{}#&*!|>'\"%@`"
+
+
+def _valor_simple(resto: str) -> bool | None:
+    """Lo que va después de «clave:»: True si lleva un valor de forma simple, False si va vacío, None si no es simple."""
+    if resto.strip(" ") == "":
+        return False
+    if not resto.startswith(" "):
+        return None
+    r = resto.lstrip(" ")
+    if r.startswith("#"):
+        return False
+    if r[0] in "\"'":
+        fin = r.find(r[0], 1)
+        if fin < 0 or (r[0] == '"' and "\\" in r[1:fin]):
+            return None
+        detras = r[fin + 1:]
+    elif r.startswith(("[]", "{}")):
+        detras = r[2:]
+    else:
+        valor = r.split(" #", 1)[0].rstrip(" ")
+        if valor[0] in _SIGNOS or ": " in valor or valor.endswith(":"):
+            return None
+        return True
+    return True if (detras.strip(" ") == "" or re.fullmatch(r" +#.*", detras)) else None
+
+
+def _cabecera_simple(lineas: list) -> bool:
+    """¿La cabecera es un mapa de YAML de forma tan simple que se lee seguro, con cada clave en su sitio? Claves y
+    valores simples, listas con «- », sangrías solo con espacios y coherentes. Si no, no se sabe cómo la lee YAML."""
+    pila, hijo_de = [(0, "mapa")], None      # colecciones abiertas (sangría, tipo); la clave que espera un bloque
+    for linea in lineas:
+        if "\t" in linea:
+            return False
+        if not _es_texto(linea):
+            continue
+        n = len(linea) - len(linea.lstrip(" "))
+        c = linea[n:]
+        if c.startswith("- "):
+            if hijo_de is not None and (n > hijo_de or (n == hijo_de and pila[-1] == (n, "mapa"))):
+                pila.append((n, "lista"))
+            else:
+                while pila[-1][0] > n:
+                    pila.pop()
+                if pila[-1] != (n, "lista"):
+                    return False
+            c, n, hijo_de = c[2:], n + 2, None
+            if c[:1] == " " or not c.strip(" "):
+                return False
+            m = _CLAVE_YAML.match(c)
+            if not m:
+                if _valor_simple(" " + c) is not True:
+                    return False
+                continue
+            pila.append((n, "mapa"))
+        else:
+            m = _CLAVE_YAML.match(c)
+            if not m:
+                return False
+            if hijo_de is not None and n > hijo_de:
+                pila.append((n, "mapa"))
+            else:
+                while pila[-1][0] > n or (pila[-1][0] == n and pila[-1][1] == "lista" and len(pila) > 1):
+                    pila.pop()
+                if pila[-1] != (n, "mapa"):
+                    return False
+        v = _valor_simple(c[m.end():])
+        if v is None:
+            return False
+        hijo_de = n if v is False else None
+    return True
+
+
 def leer_interruptor(texto_objetivos: str | None) -> tuple[str | None, str]:
     """(valor, motivo). El interruptor de la cabecera `---` de objetivos.md, cerrado ante la duda: valor None (no se
-    enseña la vista) si el texto no se pudo leer, la cabecera no se cierra, `orquestar:` va dos veces, alguna línea lo
-    nombra sin la única forma válida (`orquestar: valor`), va vacío con su valor en la línea siguiente, lleva saltos de
-    línea raros, o su valor no vale. Sin el campo, vale auto."""
+    enseña la vista) si el texto no se pudo leer, lleva saltos de línea raros, la cabecera no se cierra con `---` en la
+    columna 0, `orquestar:` va dos veces, alguna línea lo nombra sin la única forma válida (`orquestar: valor`, en la
+    columna 0), lo sigue una línea sangrada, alguna línea de la columna 0 empieza por un signo que cambia cómo se lee el
+    YAML, o su valor no vale. Sin el campo, vale auto. El criterio es el de YAML: si da un valor y la cabecera carga,
+    YAML lee lo mismo."""
     if texto_objetivos is None:
         return None, "tu objetivos.md no se puede leer (no es un archivo, o no está en UTF-8)"
     if _SALTOS_RAROS.search(texto_objetivos):
         return None, "tu objetivos.md lleva saltos de línea raros: guárdalo con saltos de línea normales"
     lineas = re.split(r"\r\n|\r|\n", texto_objetivos.lstrip("\ufeff"))
-    if not lineas or lineas[0].strip() != "---":
+    if not lineas or lineas[0].rstrip(" ") != "---":
         if any(_nombra_orquestar(l) for l in lineas):
             return None, "tu objetivos.md nombra `orquestar:`, pero no tiene la cabecera `---` de siempre"
         return "auto", ""
-    valores = []
-    for n, linea in enumerate(lineas[1:], 1):
-        if linea.strip() == "---":
+    valores, esperando_siguiente = [], False
+    for i, linea in enumerate(lineas[1:], 1):
+        if linea.rstrip(" ") == "---":
+            cabecera = lineas[1:i]
             if not valores:
+                # Sin el campo, auto; salvo que YAML pudiera formar la clave de otra manera (con escapes, o con una
+                # clave compleja): entonces, solo si la cabecera es de la forma simple.
+                dudosa = any("orquestar" in l.lower() or "\\" in l for l in cabecera)
+                if dudosa and not _cabecera_simple(cabecera):
+                    return None, "la cabecera de tu objetivos.md tiene una forma que no sé leer con seguridad"
                 return "auto", ""
+            if not _cabecera_simple(cabecera):
+                return None, "la cabecera de tu objetivos.md tiene una forma que no sé leer con seguridad"
             if len(valores) > 1:
                 return None, "`orquestar:` va dos veces en tu objetivos.md"
             valor = normalizar(valores[0])
             return (valor, "") if valor else (None, "`orquestar:` no vale auto, encendido ni apagado")
+        if esperando_siguiente and _es_texto(linea):
+            if linea[:1] in (" ", "\t"):
+                return None, "a `orquestar:` lo sigue una línea sangrada: escríbelo como orquestar: valor, en una línea"
+            esperando_siguiente = False
+        if _es_texto(linea) and linea[:1] not in (" ", "\t") and _RARA_EN_COLUMNA_0.match(linea):
+            return None, "una línea de la cabecera de tu objetivos.md empieza por un signo que cambia cómo se lee"
         m = _ORQUESTAR.fullmatch(linea)
         if m:
-            siguiente = lineas[n + 1] if n + 1 < len(lineas) else ""
-            if m.group(1) is None and siguiente[:1] in (" ", "\t") and siguiente.strip():
-                return None, "`orquestar:` va vacío y su valor parece ir en la línea siguiente: escríbelo como orquestar: valor"
             valores.append(m.group(1))
+            esperando_siguiente = True
         elif _nombra_orquestar(linea):
             return None, "una línea de tu objetivos.md nombra `orquestar:` sin la forma de siempre (orquestar: valor)"
     return None, "la cabecera de tu objetivos.md no se cierra con `---`"
@@ -167,7 +262,7 @@ def leer_objetivos(ruta) -> tuple[str | None, str]:
     """(texto, nota). Un archivo que no existe vale auto y la nota lo dice; uno que no se puede leer en UTF-8, None."""
     p = Path(ruta) if ruta is not None and str(ruta).strip() else None
     if p is None or not p.exists():
-        return "", f"no encuentro {ruta or 'objetivos.md'}: vale auto"
+        return "", f"no encuentro {_CONTROL.sub('?', str(ruta or 'objetivos.md'))}: vale auto"
     try:
         return p.read_bytes().decode("utf-8"), ""
     except (OSError, UnicodeError):
@@ -246,18 +341,18 @@ def vista_sitios(sitios: list, ahora: datetime.datetime | None = None) -> str:
     return "\n".join(lineas + ["", f"Te recomiendo ir a {sitio}: {porque}. Allí lo lleva su agente."])
 
 
-_CONTROL = re.compile("[\x00-\x1f\x7f-\x9f\u2028\u2029]")
+_CONTROL = re.compile("[\x00-\x1f\x7f-\x9f\u2028\u2029\u200b-\u200f\u202a-\u202e\u2066-\u2069\ufeff]")
 
 
 def argumentos(argv: list, otras: tuple = ()) -> tuple[list, list, list]:
     """(firmados, adoptados, avisos) de `--sitio NOMBRE=BANDEJA ...` y `--existente NOMBRE=BANDEJA ...`, cada opción
     una o varias veces. Lo que no entiende va a avisos, nunca se deja caer ni se toma por un sitio: una opción que no
     conoce (también `--existente=…`), una opción sin nada detrás, un valor sin NOMBRE=, un nombre o una ruta con
-    caracteres de control, o un nombre repetido con otra bandeja. Después de algo que no entiende, deja de asignar hasta
-    la opción siguiente. Un nombre que va en --sitio y en --existente se avisa y se queda donde salió primero.
+    caracteres de control o de formato, o un nombre repetido con otra bandeja. Después de algo que no entiende, deja de
+    asignar hasta la opción siguiente, y el nombre de lo que dejó fuera queda reservado: si vuelve, tampoco se toma. Un nombre que va en --sitio y en --existente se avisa y se queda donde salió primero.
     `otras`: opciones sin valor que se aceptan."""
     firmados, adoptados, avisos = [], [], []
-    actual, opcion, contados, vistos = None, None, 0, {}
+    actual, opcion, contados, vistos, reservados = None, None, 0, {}, set()
     forma = "va como --sitio NOMBRE=BANDEJA o --existente NOMBRE=BANDEJA"
 
     def cerrar():
@@ -274,15 +369,21 @@ def argumentos(argv: list, otras: tuple = ()) -> tuple[list, list, list]:
             continue
         if _CONTROL.search(a):
             avisos.append(f"un sitio lleva caracteres de control: lo dejo fuera ({forma})")
+            reservados.add(_CONTROL.sub("", a.split("=", 1)[0]).strip())
             actual, opcion = None, None
             continue
         if actual is None or "=" not in a or not a.split("=", 1)[0].strip():
             avisos.append(f"no entiendo «{a}»: {forma}")
+            if "=" in a:
+                reservados.add(a.split("=", 1)[0].strip())
             actual, opcion = None, None
             continue
         nombre, ruta = a.split("=", 1)
         nombre = nombre.strip()
         contados += 1
+        if nombre in reservados:
+            avisos.append(f"«{nombre}» ya salió en algo que dejé fuera: tampoco lo tomo ahora; corrígelo")
+            continue
         if nombre in vistos:
             if vistos[nombre] != ruta:
                 avisos.append(f"«{nombre}» va dos veces con bandejas distintas: uso la primera")
