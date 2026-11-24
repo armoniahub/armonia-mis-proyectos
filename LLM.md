@@ -329,7 +329,7 @@ Lee el interruptor de `objetivos.md` y, si está encendida, imprime la vista. En
 - Un campo que no tiene la forma de siempre no se copia. Una clave que no es de letras en mayúscula y números, un guion
   y un número sale «sin clave». Una fecha imposible sale «sin fecha». Un estado que no es de los de siempre sale «otro».
   Sin `estado:`, cuenta como `pendiente`.
-- Lo que está `hecho` o `cerrado` no cuenta como pendiente.
+- Lo que está `hecho`, `cerrado` o `done` no cuenta como pendiente.
 - Si un sitio no está en su computador, o en su bandeja no hay ningún archivo que se pueda leer (porque su cola vive en
   otro sitio), su fila dice «no visible desde aquí». No lo adivines ni lo busques fuera.
 - **Si no puedes ejecutarla** (por ejemplo, porque no hay Python en su computador), no leas las bandejas de otra forma.

@@ -23,9 +23,9 @@ MIN_SITIOS_AUTO = 2
 TOPE_VISTA = 7
 CLAVE = re.compile(r"[A-Z][A-Z0-9]{1,9}-\d{1,6}")
 FECHA = re.compile(r"\d{4}-\d{2}-\d{2}")
-ESTADOS = ("pendiente", "todo", "por-hacer", "en-curso", "doing", "bloqueado", "esperando", "hecho", "cerrado")
+ESTADOS = ("pendiente", "todo", "por-hacer", "en-curso", "doing", "bloqueado", "esperando", "hecho", "cerrado", "done")
 EN_CURSO = ("en-curso", "doing")
-CERRADOS = ("hecho", "cerrado")
+CERRADOS = ("hecho", "cerrado", "done")
 LEER_HASTA = 8192          # solo el principio de cada archivo: la cabecera
 CAMPOS = ("jira", "fecha", "estado")
 
