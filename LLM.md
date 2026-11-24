@@ -256,6 +256,8 @@ a la actual le queda menos de un mes, la siguiente. Usa esa misma en el paso 1, 
    sitios:                  # en su orden; vacío si no hay ninguno
      - sitio: "la clave o la carpeta del sitio"
        cuelga-de: persona   # persona | la clave del sitio del que cuelga
+       bandeja: ""          # la ruta de su bandeja humana en su computador (paso 5); vacía hasta saberla
+   adoptados: []            # los proyectos que pidió adoptar, con sitio: y bandeja: (sección 8)
    trato-aparte: ninguno    # o qué vale solo para ella, en una frase
    ---
    ```
@@ -284,6 +286,8 @@ a la actual le queda menos de un mes, la siguiente. Usa esa misma en el paso 1, 
    ```
 
    - Con él, el agente del sitio empieza su paso 1 del rumbo con ella.
+   - **Apunta en su firma la ruta de esa bandeja** (`bandeja:` de ese sitio): es una ruta, no un contenido, y la vista
+     de la sección 8 la lee de ahí. Apuntarla no cambia lo que ella firmó.
    - Un sitio que ya existía se **enlaza**, no se rehace: solo recibe el ítem.
    - **Solo si el sitio no tiene bandeja humana**, va a su carpeta `mensajes/`, como un mensaje de tipo `aviso` con los
      campos de ese canal y, de contenido, la misma clave y fecha.
@@ -304,34 +308,45 @@ todos, y le recomiendas a cuál ir. El trabajo de cada sitio lo sigue haciendo e
 solo le dices dónde está lo siguiente.
 
 **El interruptor** es el campo `orquestar:` de `objetivos.md`:
-- `auto`, el que viene: se enciende sola con dos sitios o más; con uno o ninguno, está apagada.
+- `auto`, el que viene: se enciende sola con dos sitios o más; con uno o ninguno, está apagada. Lo personal (este
+  espacio) no cuenta: con lo personal y una sola organización sigue apagada, porque basta con ir a esa organización. Si
+  ella la quiere igual, se pide con `encendido`.
 - `encendido`: ella la pidió, aunque tenga un solo sitio.
 - `apagado`: ella la apagó. Respétalo aunque tenga muchos sitios.
 
 Sin el campo, vale `auto`. Si te pide encenderla o apagarla, cambia ese campo y dile qué cambiaste. Si el campo trae
-otro valor, la herramienta no enseña la vista y lo dice: corrígelo con ella.
+otro valor, va dos veces, o la cabecera de `objetivos.md` no se cierra o no se puede leer, la herramienta no enseña la
+vista y lo dice: corrígelo con ella.
 
 **Qué sitios.** Los de `sitios:` en su última firma del rumbo (sección 7, paso 3), en ese orden: son los que cuentan
 para encenderla en `auto`. Detrás salen los proyectos que ya tenía y pidió adoptar (sus pedidos con `origen: existente`,
-regla 7), pero esos no cuentan para encenderla. Cada sitio, una sola vez. De cada uno, su bandeja humana: la carpeta que
-ya usaste en el paso 5 de la sección 7, o la que ella te dijo. No vuelvas a leer su README.
+regla 7), pero esos no cuentan para encenderla: van en `adoptados:` de su firma, con su `bandeja:`. Cada sitio, una sola
+vez. De cada uno, su bandeja humana es la ruta de `bandeja:` en su firma. **Si falta, pregúntasela y apúntala**; nunca la
+busques tú ni vuelvas a leer el README del sitio.
 
 **Cómo la lees: solo con su herramienta.** No listes las bandejas ni abras sus archivos tú: el nombre de cada archivo
-lleva su título, y su texto es de ese sitio. Ejecuta (con `python`, o `python3` si es el que hay):
+lleva su título, y su texto es de ese sitio. Ejecútala desde la raíz de este espacio (con `python`, o `python3` si es el
+que hay):
 
 ```
-python herramientas/vista_sitios.py {su objetivos.md} --sitio {sitio}={su bandeja} … --existente {sitio}={su bandeja} …
+python -I herramientas/vista_sitios.py {su objetivos.md} --sitio {sitio}={su bandeja} … --existente {sitio}={su bandeja} …
 ```
 
 Lee el interruptor de `objetivos.md` y, si está encendida, imprime la vista. Enséñasela tal cual.
 - De cada archivo de la raíz de la bandeja (sin el README) lee solo tres campos de su cabecera: `jira:` (la clave),
   `fecha:` y `estado:`. Nunca el nombre del archivo, el título, el texto ni ningún otro campo.
-- Un campo que no tiene la forma de siempre no se copia. Una clave que no es de letras en mayúscula y números, un guion
-  y un número sale «sin clave». Una fecha imposible sale «sin fecha». Un estado que no es de los de siempre sale «otro».
-  Sin `estado:`, cuenta como `pendiente`.
-- Lo que está `hecho`, `cerrado` o `done` no cuenta como pendiente.
-- Si un sitio no está en su computador, o en su bandeja no hay ningún archivo que se pueda leer (porque su cola vive en
-  otro sitio), su fila dice «no visible desde aquí». No lo adivines ni lo busques fuera.
+- Un campo que no tiene la forma de siempre no se copia:
+  - la clave es de 2 a 10 letras en mayúscula o cifras, empezando por una letra, un guion y de 1 a 6 cifras (solo las
+    cifras de siempre, del 0 al 9); si no, sale «sin clave»;
+  - una fecha imposible sale «sin fecha»;
+  - un estado que no es de los de siempre sale «otro», y sin `estado:` cuenta como `pendiente`.
+- Lo que está `hecho`, `cerrado` o `done` no cuenta como pendiente; `bloqueado` y `esperando`, sí.
+- El estado es el que dice el archivo. Si ese sitio lleva su cola en otro sitio (como JIRA), puede ir por detrás.
+- No lee el riesgo vivo, lo bloqueante, la prioridad ni el objetivo de ningún ítem: por eso el orden es solo el de abajo.
+- Si un sitio no está en su computador, si su ruta está vacía, o si en su bandeja no hay ningún archivo que se pueda
+  leer (solo su README, o porque su cola vive en otro sitio), su fila dice «no visible desde aquí». No lo adivines ni lo
+  busques fuera.
+- Si la herramienta avisa de que no entiende algo de lo que le pasaste, corrígelo y vuelve a ejecutarla.
 - **Si no puedes ejecutarla** (por ejemplo, porque no hay Python en su computador), no leas las bandejas de otra forma.
   Dile que la vista necesita Python y que, sin él, cada sitio sale «no visible desde aquí».
 
@@ -354,9 +369,9 @@ Lo pendiente de tus sitios · leído a las HH:MM
 Te recomiendo ir a {sitio}: {por qué}. Allí lo lleva su agente.
 ```
 
-- **El orden.** Primero, lo que está en curso. Luego, los sitios en el orden que ella firmó. Dentro de cada sitio, lo más
-  antiguo primero, y lo que no tiene fecha al final. Si nada de un sitio está en curso, su fila dice solo «N pendientes».
+- **El orden.** Primero, lo que está en curso. Luego, los sitios en el orden que ella firmó, y detrás los adoptados.
+  Dentro de cada sitio, lo más antiguo primero, y lo que no tiene fecha al final. Si nada de un sitio está en curso, su fila dice solo «N pendientes».
 - **Un tope de 7** cosas a la vista. Si hay más, dice cuántas quedan fuera.
 - **La recomendación.** El sitio con más cosas en curso, porque lo empezado se termina antes de abrir otra cosa. Si
-  empatan, el primero que ella firmó. Si no hay nada en curso, el primero que ella firmó con algo pendiente. Siempre con
-  su porqué.
+  empatan, el primero que ella firmó. Si no hay nada en curso, el primero que ella firmó con algo pendiente (y, si
+  ninguno lo tiene, el primero de los adoptados). Siempre con su porqué, que dice si es un sitio adoptado.
