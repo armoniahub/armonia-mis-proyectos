@@ -241,7 +241,8 @@ a la actual le queda menos de un mes, la siguiente. Usa esa misma en el paso 1, 
 3. **Firmar, y qué sitios cuelgan de este rumbo.** Una pregunta cada vez (regla 5):
    1. léele el rumbo entero y pregúntale si lo firma. **Sin su norte y sus motivos escritos en `objetivos.md` no hay
       firma**: vuelve al paso 1;
-   2. con su sí, pregúntale qué organizaciones y qué productos suyos vienen después, y en qué orden;
+   2. con su sí, pregúntale qué organizaciones y qué productos suyos vienen después, y en qué orden. Este espacio (lo
+      personal) no va en `sitios:`;
    3. de cada uno, de quién cuelga: de ella o de una de sus organizaciones. Lo dice ella, no la carpeta donde vive.
 
    **Un sitio que aún no existe no se crea** (regla 7): va a `portafolio.md` y se pide como cualquier proyecto. Escribe
@@ -257,7 +258,7 @@ a la actual le queda menos de un mes, la siguiente. Usa esa misma en el paso 1, 
      - sitio: "la clave o la carpeta del sitio"
        cuelga-de: persona   # persona | la clave del sitio del que cuelga
        bandeja: ""          # la ruta de su bandeja humana en su computador (paso 5); vacía hasta saberla
-   adoptados: []            # los proyectos que pidió adoptar, con sitio: y bandeja: (sección 8)
+   adoptados: []            # apuntado después (no firmado), los proyectos que pidió adoptar, con sitio y bandeja
    trato-aparte: ninguno    # o qué vale solo para ella, en una frase
    ---
    ```
@@ -287,7 +288,9 @@ a la actual le queda menos de un mes, la siguiente. Usa esa misma en el paso 1, 
 
    - Con él, el agente del sitio empieza su paso 1 del rumbo con ella.
    - **Apunta en su firma la ruta de esa bandeja** (`bandeja:` de ese sitio): es una ruta, no un contenido, y la vista
-     de la sección 8 la lee de ahí. Apuntarla no cambia lo que ella firmó.
+     de la sección 8 la lee de ahí. En una firma ya hecha **solo se añaden** `bandeja:` de cada sitio y `adoptados:`
+     (marcado «apuntado después, no firmado»); nunca se tocan `frase:`, `sitios:` ni su orden. Dile qué apuntaste.
+   - Al firmar la temporada siguiente, copia las bandejas de la firma anterior.
    - Un sitio que ya existía se **enlaza**, no se rehace: solo recibe el ítem.
    - **Solo si el sitio no tiene bandeja humana**, va a su carpeta `mensajes/`, como un mensaje de tipo `aviso` con los
      campos de ese canal y, de contenido, la misma clave y fecha.
@@ -310,7 +313,8 @@ solo le dices dónde está lo siguiente.
 **El interruptor** es el campo `orquestar:` de `objetivos.md`:
 - `auto`, el que viene: se enciende sola con dos sitios o más; con uno o ninguno, está apagada. Lo personal (este
   espacio) no cuenta: con lo personal y una sola organización sigue apagada, porque basta con ir a esa organización. Si
-  ella la quiere igual, se pide con `encendido`.
+  ella la quiere igual, se pide con `encendido`. Cuando la herramienta diga que está apagada en `auto` con algún sitio,
+  díselo en una línea y recuérdale que puede pedirla así.
 - `encendido`: ella la pidió, aunque tenga un solo sitio.
 - `apagado`: ella la apagó. Respétalo aunque tenga muchos sitios.
 
