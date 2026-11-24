@@ -113,23 +113,33 @@ def normalizar(v) -> str | None:
     return "auto" if v == "" else (v if v in ORQUESTAR else None)
 
 
-_NOMBRA_ORQUESTAR = re.compile(r"""\s*["']?orquestar["']?\s*:""", re.I)
-_ORQUESTAR = re.compile(r"""orquestar:[ \t]*("[^"]*"|'[^']*'|[^#]*?)[ \t]*(#.*)?""")
+_SALTOS_RAROS = re.compile("[\x0b\x0c\x1c\x1d\x1e\x85\u2028\u2029]")   # otros saltos de línea: duda
+_NOMBRA_ORQUESTAR = re.compile(r"""orquestar["']?\s*:""", re.I)
+# La única forma válida: al principio de la línea, sin nada detrás o con espacio y valor, y si acaso espacio y #comentario.
+_ORQUESTAR = re.compile(r"""orquestar:(?:[ \t]+("[^"]*"|'[^']*'|[^\s#"']+))?(?:[ \t]+#.*)?[ \t]*""")
+
+
+def _nombra_orquestar(linea: str) -> bool:
+    """¿La línea lleva «orquestar» seguido de «:», en cualquier posición, y no es un comentario entero?"""
+    return not linea.lstrip().startswith("#") and bool(_NOMBRA_ORQUESTAR.search(linea))
 
 
 def leer_interruptor(texto_objetivos: str | None) -> tuple[str | None, str]:
     """(valor, motivo). El interruptor de la cabecera `---` de objetivos.md, cerrado ante la duda: valor None (no se
     enseña la vista) si el texto no se pudo leer, la cabecera no se cierra, `orquestar:` va dos veces, alguna línea lo
-    nombra sin la forma de siempre, o su valor no vale. Sin el campo, vale auto."""
+    nombra sin la única forma válida (`orquestar: valor`), va vacío con su valor en la línea siguiente, lleva saltos de
+    línea raros, o su valor no vale. Sin el campo, vale auto."""
     if texto_objetivos is None:
-        return None, "tu objetivos.md no se puede leer (tiene que estar en UTF-8)"
+        return None, "tu objetivos.md no se puede leer (no es un archivo, o no está en UTF-8)"
+    if _SALTOS_RAROS.search(texto_objetivos):
+        return None, "tu objetivos.md lleva saltos de línea raros: guárdalo con saltos de línea normales"
     lineas = re.split(r"\r\n|\r|\n", texto_objetivos.lstrip("\ufeff"))
     if not lineas or lineas[0].strip() != "---":
-        if any(_NOMBRA_ORQUESTAR.match(l) for l in lineas):
+        if any(_nombra_orquestar(l) for l in lineas):
             return None, "tu objetivos.md nombra `orquestar:`, pero no tiene la cabecera `---` de siempre"
         return "auto", ""
     valores = []
-    for linea in lineas[1:]:
+    for n, linea in enumerate(lineas[1:], 1):
         if linea.strip() == "---":
             if not valores:
                 return "auto", ""
@@ -139,8 +149,11 @@ def leer_interruptor(texto_objetivos: str | None) -> tuple[str | None, str]:
             return (valor, "") if valor else (None, "`orquestar:` no vale auto, encendido ni apagado")
         m = _ORQUESTAR.fullmatch(linea)
         if m:
+            siguiente = lineas[n + 1] if n + 1 < len(lineas) else ""
+            if m.group(1) is None and siguiente[:1] in (" ", "\t") and siguiente.strip():
+                return None, "`orquestar:` va vacío y su valor parece ir en la línea siguiente: escríbelo como orquestar: valor"
             valores.append(m.group(1))
-        elif _NOMBRA_ORQUESTAR.match(linea):
+        elif _nombra_orquestar(linea):
             return None, "una línea de tu objetivos.md nombra `orquestar:` sin la forma de siempre (orquestar: valor)"
     return None, "la cabecera de tu objetivos.md no se cierra con `---`"
 
@@ -189,7 +202,7 @@ def vista_sitios(sitios: list, ahora: datetime.datetime | None = None) -> str:
     cada uno lo más antiguo (lo sin fecha al final) y, a igualdad, por clave."""
     ahora = ahora or datetime.datetime.now()
     lineas = [f"Lo pendiente de tus sitios · leído a las {ahora:%H:%M}"]
-    items, candidatos, vistos = [], [], set()
+    items, candidatos, vistos, hay_no_visible = [], [], set(), False
     for orden, sitio in enumerate(sitios):
         nombre, filas, es_firmado = (tuple(sitio) + (True,))[:3]
         if nombre in vistos:
@@ -197,6 +210,7 @@ def vista_sitios(sitios: list, ahora: datetime.datetime | None = None) -> str:
         vistos.add(nombre)
         if filas is None:
             lineas.append(f"- {nombre}: no visible desde aquí")
+            hay_no_visible = True
             continue
         curso = sum(1 for f in filas if f["estado"] in EN_CURSO)
         lineas.append(f"- {nombre}: {len(filas)} pendiente{'' if len(filas) == 1 else 's'}"
@@ -227,16 +241,24 @@ def vista_sitios(sitios: list, ahora: datetime.datetime | None = None) -> str:
     else:
         porque = ("nada está en curso, y ninguno de los sitios que firmaste tiene algo pendiente que se vea desde aquí: "
                   "es el primero de los proyectos que pediste adoptar")
+    if hay_no_visible and (curso or es_firmado):
+        porque = "de lo que se ve desde aquí, " + porque
     return "\n".join(lineas + ["", f"Te recomiendo ir a {sitio}: {porque}. Allí lo lleva su agente."])
+
+
+_CONTROL = re.compile("[\x00-\x1f\x7f-\x9f\u2028\u2029]")
 
 
 def argumentos(argv: list, otras: tuple = ()) -> tuple[list, list, list]:
     """(firmados, adoptados, avisos) de `--sitio NOMBRE=BANDEJA ...` y `--existente NOMBRE=BANDEJA ...`, cada opción
     una o varias veces. Lo que no entiende va a avisos, nunca se deja caer ni se toma por un sitio: una opción que no
-    conoce (también `--existente=…`), una opción sin nada detrás, un valor sin NOMBRE=, o un nombre repetido con otra
-    bandeja. `otras`: opciones sin valor que se aceptan."""
+    conoce (también `--existente=…`), una opción sin nada detrás, un valor sin NOMBRE=, un nombre o una ruta con
+    caracteres de control, o un nombre repetido con otra bandeja. Después de algo que no entiende, deja de asignar hasta
+    la opción siguiente. Un nombre que va en --sitio y en --existente se avisa y se queda donde salió primero.
+    `otras`: opciones sin valor que se aceptan."""
     firmados, adoptados, avisos = [], [], []
     actual, opcion, contados, vistos = None, None, 0, {}
+    forma = "va como --sitio NOMBRE=BANDEJA o --existente NOMBRE=BANDEJA"
 
     def cerrar():
         if opcion is not None and contados == 0:
@@ -248,18 +270,24 @@ def argumentos(argv: list, otras: tuple = ()) -> tuple[list, list, list]:
             opcion, contados = (a, 0) if a in OPCIONES else (None, 0)
             actual = firmados if a == "--sitio" else adoptados if a == "--existente" else None
             if a not in OPCIONES and a not in otras:
-                avisos.append(f"no conozco «{a}»: va como --sitio NOMBRE=BANDEJA o --existente NOMBRE=BANDEJA")
+                avisos.append(f"no conozco «{_CONTROL.sub('?', a)}»: {forma}")
+            continue
+        if _CONTROL.search(a):
+            avisos.append(f"un sitio lleva caracteres de control: lo dejo fuera ({forma})")
+            actual, opcion = None, None
             continue
         if actual is None or "=" not in a or not a.split("=", 1)[0].strip():
-            avisos.append(f"no entiendo «{a}»: va como --sitio NOMBRE=BANDEJA o --existente NOMBRE=BANDEJA")
+            avisos.append(f"no entiendo «{a}»: {forma}")
+            actual, opcion = None, None
             continue
         nombre, ruta = a.split("=", 1)
         nombre = nombre.strip()
         contados += 1
-        if nombre in vistos and vistos[nombre] != ruta:
-            avisos.append(f"«{nombre}» va dos veces con bandejas distintas: uso la primera")
-            continue
         if nombre in vistos:
+            if vistos[nombre] != ruta:
+                avisos.append(f"«{nombre}» va dos veces con bandejas distintas: uso la primera")
+            elif (actual is firmados) != ((nombre, ruta) in firmados):
+                avisos.append(f"«{nombre}» va en --sitio y en --existente: lo dejo donde salió primero; corrígelo")
             continue
         vistos[nombre] = ruta
         actual.append((nombre, ruta))
