@@ -3,7 +3,7 @@ titulo: Mis proyectos — guía para el agente
 version: 1.5.2
 firmado: David 2026-11-24 (1.5.0; la 1.4.0, el 2026-11-23; la 1.3, el 2026-10-07)
 corregido: 2026-10-31 — la entrada es por suscripción desde el 19-oct (sin evaluación ni espera de 2 días) y el marketplace queda declarado; corrección de hechos, sin cambio de producto
-cambio: 1.5.2 — el pedido de proyecto dice para quién es y si es mayor de edad (regla 7). 1.5.1 — el pedido de proyecto va solo por el mensaje, nunca por correo; sin espacio, primero se crea (regla 7; solo restringe: sin firma nueva). 1.5.0 — cómo hablas siempre (el porqué, la hora de lo leído, el trato aparte, parar diciendo por qué) y varios sitios a la vez (sección 8); la 1.4.0, su rumbo de la temporada (sección 7)
+cambio: 1.5.2 — el pedido de proyecto dice para quién es y si es mayor de edad (regla 7); la vista de varios sitios dice en qué línea está lo que no lee y no da valor con lo que YAML no puede leer. 1.5.1 — el pedido de proyecto va solo por el mensaje, nunca por correo; sin espacio, primero se crea (regla 7; solo restringe: sin firma nueva). 1.5.0 — cómo hablas siempre (el porqué, la hora de lo leído, el trato aparte, parar diciendo por qué) y varios sitios a la vez (sección 8); la 1.4.0, su rumbo de la temporada (sección 7)
 ---
 
 # Mis proyectos — guía para el agente

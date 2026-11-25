@@ -133,6 +133,37 @@ def _es_texto(linea: str) -> bool:
 
 _CLAVE_YAML = re.compile(r"[A-Za-z_][A-Za-z0-9_-]*:")
 _SIGNOS = "-?:,[]{}#&*!|>'\"%@`"
+# Lo que YAML no admite en un documento (lo rechaza entero) y los valores sueltos que lee como un número o una fecha, pero
+# no puede construir: con ellos YAML no carga la cabecera, así que no se sabe qué diría. Duda.
+_NO_IMPRIMIBLE = re.compile("[^\t\n\r\x20-\x7e\x85\xa0-\ud7ff\ue000-\ufffd\U00010000-\U0010ffff]")
+_NUMERO_YAML = re.compile(r"[-+]?(?:0b[0-1_]+|0x[0-9a-fA-F_]+|0[0-7_]+|[0-9][0-9_]*(?:\.[0-9_]*)?(?:[eE][-+][0-9]+)?"
+                          r"|\.[0-9_]+(?:[eE][-+][0-9]+)?)")
+_FECHA_YAML = re.compile(r"([0-9]{4})-([0-9]{1,2})-([0-9]{1,2})(?:(?:[Tt]|[ \t]+)[0-9]{1,2}:[0-9]{2}:[0-9]{2}.*)?")
+
+
+def _plano_construible(valor: str) -> bool:
+    """¿YAML puede construir este valor suelto? No si es «=» o «<<», un número sin cifras (0x_, 0b_, ._) o una fecha
+    imposible (2026-02-30)."""
+    if valor in ("=", "<<"):
+        return False
+    if _NUMERO_YAML.fullmatch(valor):
+        v = valor.replace("_", "").lstrip("+-").lower()
+        if v.startswith(("0x", "0b")):
+            return len(v) > 2
+        if v.startswith("0") and v.isdigit():
+            return True
+        try:
+            float(v)
+        except ValueError:
+            return False
+        return True
+    m = _FECHA_YAML.fullmatch(valor)
+    if m:
+        try:
+            datetime.date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+        except ValueError:
+            return False
+    return True
 
 
 def _valor_simple(resto: str) -> bool | None:
@@ -153,7 +184,7 @@ def _valor_simple(resto: str) -> bool | None:
         detras = r[2:]
     else:
         valor = r.split(" #", 1)[0].rstrip(" ")
-        if valor[0] in _SIGNOS or ": " in valor or valor.endswith(":"):
+        if valor[0] in _SIGNOS or ": " in valor or valor.endswith(":") or not _plano_construible(valor):
             return None
         return True
     return True if (detras.strip(" ") == "" or re.fullmatch(r" +#.*", detras)) else None
@@ -162,10 +193,15 @@ def _valor_simple(resto: str) -> bool | None:
 def _cabecera_simple(lineas: list) -> bool:
     """¿La cabecera es un mapa de YAML de forma tan simple que se lee seguro, con cada clave en su sitio? Claves y
     valores simples, listas con «- », sangrías solo con espacios y coherentes. Si no, no se sabe cómo la lee YAML."""
+    return _linea_no_simple(lineas) == 0
+
+
+def _linea_no_simple(lineas: list) -> int:
+    """La primera línea (desde 1) de la cabecera que no es de la forma simple, o 0 si toda lo es (ver _cabecera_simple)."""
     pila, hijo_de = [(0, "mapa")], None      # colecciones abiertas (sangría, tipo); la clave que espera un bloque
-    for linea in lineas:
-        if "\t" in linea:
-            return False
+    for i, linea in enumerate(lineas, 1):
+        if "\t" in linea or _NO_IMPRIMIBLE.search(linea):
+            return i
         if not _es_texto(linea):
             continue
         n = len(linea) - len(linea.lstrip(" "))
@@ -177,32 +213,32 @@ def _cabecera_simple(lineas: list) -> bool:
                 while pila[-1][0] > n:
                     pila.pop()
                 if pila[-1] != (n, "lista"):
-                    return False
+                    return i
             c, n, hijo_de = c[2:], n + 2, None
             if c[:1] == " " or not c.strip(" "):
-                return False
+                return i
             m = _CLAVE_YAML.match(c)
             if not m:
                 if _valor_simple(" " + c) is not True:
-                    return False
+                    return i
                 continue
             pila.append((n, "mapa"))
         else:
             m = _CLAVE_YAML.match(c)
             if not m:
-                return False
+                return i
             if hijo_de is not None and n > hijo_de:
                 pila.append((n, "mapa"))
             else:
                 while pila[-1][0] > n or (pila[-1][0] == n and pila[-1][1] == "lista" and len(pila) > 1):
                     pila.pop()
                 if pila[-1] != (n, "mapa"):
-                    return False
+                    return i
         v = _valor_simple(c[m.end():])
         if v is None:
-            return False
+            return i
         hijo_de = n if v is False else None
-    return True
+    return 0
 
 
 def leer_interruptor(texto_objetivos: str | None) -> tuple[str | None, str]:
@@ -229,27 +265,30 @@ def leer_interruptor(texto_objetivos: str | None) -> tuple[str | None, str]:
                 # Sin el campo, auto; salvo que YAML pudiera formar la clave de otra manera (con escapes, o con una
                 # clave compleja): entonces, solo si la cabecera es de la forma simple.
                 dudosa = any("orquestar" in l.lower() or "\\" in l for l in cabecera)
-                if dudosa and not _cabecera_simple(cabecera):
-                    return None, "la cabecera de tu objetivos.md tiene una forma que no sé leer con seguridad"
+                n = _linea_no_simple(cabecera) if dudosa else 0
+                if n:
+                    return None, f"la cabecera de tu objetivos.md tiene una forma que no sé leer con seguridad (línea {n + 1})"
                 return "auto", ""
-            if not _cabecera_simple(cabecera):
-                return None, "la cabecera de tu objetivos.md tiene una forma que no sé leer con seguridad"
+            n = _linea_no_simple(cabecera)
+            if n:
+                return None, f"la cabecera de tu objetivos.md tiene una forma que no sé leer con seguridad (línea {n + 1})"
             if len(valores) > 1:
                 return None, "`orquestar:` va dos veces en tu objetivos.md"
             valor = normalizar(valores[0])
             return (valor, "") if valor else (None, "`orquestar:` no vale auto, encendido ni apagado")
         if esperando_siguiente and _es_texto(linea):
             if linea[:1] in (" ", "\t"):
-                return None, "a `orquestar:` lo sigue una línea sangrada: escríbelo como orquestar: valor, en una línea"
+                return None, (f"a `orquestar:` lo sigue una línea sangrada (línea {i + 1}): escríbelo como "
+                              "orquestar: valor, en una línea")
             esperando_siguiente = False
         if _es_texto(linea) and linea[:1] not in (" ", "\t") and _RARA_EN_COLUMNA_0.match(linea):
-            return None, "una línea de la cabecera de tu objetivos.md empieza por un signo que cambia cómo se lee"
+            return None, f"la línea {i + 1} de tu objetivos.md empieza por un signo que cambia cómo se lee"
         m = _ORQUESTAR.fullmatch(linea)
         if m:
             valores.append(m.group(1))
             esperando_siguiente = True
         elif _nombra_orquestar(linea):
-            return None, "una línea de tu objetivos.md nombra `orquestar:` sin la forma de siempre (orquestar: valor)"
+            return None, f"la línea {i + 1} de tu objetivos.md nombra `orquestar:` sin la forma de siempre (orquestar: valor)"
     return None, "la cabecera de tu objetivos.md no se cierra con `---`"
 
 
