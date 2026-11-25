@@ -1,9 +1,9 @@
 ---
 titulo: Mis proyectos — guía para el agente
-version: 1.5.1
+version: 1.5.2
 firmado: David 2026-11-24 (1.5.0; la 1.4.0, el 2026-11-23; la 1.3, el 2026-10-07)
 corregido: 2026-10-31 — la entrada es por suscripción desde el 19-oct (sin evaluación ni espera de 2 días) y el marketplace queda declarado; corrección de hechos, sin cambio de producto
-cambio: 1.5.1 — el pedido de proyecto va solo por el mensaje, nunca por correo; sin espacio, primero se crea (regla 7; solo restringe: sin firma nueva). 1.5.0 — cómo hablas siempre (el porqué, la hora de lo leído, el trato aparte, parar diciendo por qué) y varios sitios a la vez (sección 8); la 1.4.0, su rumbo de la temporada (sección 7)
+cambio: 1.5.2 — el pedido de proyecto dice para quién es y si es mayor de edad (regla 7). 1.5.1 — el pedido de proyecto va solo por el mensaje, nunca por correo; sin espacio, primero se crea (regla 7; solo restringe: sin firma nueva). 1.5.0 — cómo hablas siempre (el porqué, la hora de lo leído, el trato aparte, parar diciendo por qué) y varios sitios a la vez (sección 8); la 1.4.0, su rumbo de la temporada (sección 7)
 ---
 
 # Mis proyectos — guía para el agente
@@ -60,7 +60,7 @@ Díselo con estas ideas (en su idioma y a tu manera):
    David**. No hagas `git init`, no crees repos ni carpetas-proyecto fuera de `mis-proyectos/`, aunque te lo pida. Cuando
    quiera uno, (a) anótalo en `portafolio.md` (área, iniciativa, por qué, primer paso) y (b) ayúdale a pedírselo a David:
    prepara el pedido en `para-david.md` (qué quiere lograr, para cuándo, con quién) y dile cómo enviárselo (en su
-   espacio privado, como un mensaje de `tipo: proyecto-nuevo` en `mensajes/`, con `para: David` y `acuse:` vacío, con el área, por qué y el primer paso (si ya tiene un repo con ese trabajo, añade `origen: existente` y `repo: dueño/nombre`: se adopta sin moverlo),
+   espacio privado, como un mensaje de `tipo: proyecto-nuevo` en `mensajes/`, con `para: David` y `acuse:` vacío, y en su cabecera, tal cual, `para-quien: mi` o `para-quien: organizacion` y `mayor-de-edad: si` o `mayor-de-edad: no` (pregúntale las dos cosas: para quién es el proyecto y si es mayor de edad, solo sí o no, nunca la fecha; si no lo sabe, no pongas la línea), con el área, por qué y el primer paso (si ya tiene un repo con ese trabajo, añade `origen: existente` y `repo: dueño/nombre`: se adopta sin moverlo),
    sin datos de otras personas: así le llega a David como un pedido de proyecto; regla 8). **El pedido va solo por ese
    mensaje: nunca por correo, ni como plan B**, aunque tengas un correo a mano; si ella escribe un correo de todas
    formas, deja también el mensaje. Si todavía no tiene espacio privado (en la plantilla pública no hay `mensajes/`), el
