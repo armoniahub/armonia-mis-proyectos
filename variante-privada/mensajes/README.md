@@ -14,7 +14,7 @@ o por correo.
 id: MSG-MP-001           # consecutivo; es la referencia del pedido (el nombre de la carpeta, sin espacios)
 de: <autor>                   # quien escribe: el nombre en el proyecto de una persona, o David
 para: David            # David | el nombre de una persona | todos
-tipo: consulta                # consulta | encargo | aviso | sugerencia | metodo | proyecto-nuevo (pedir un proyecto)
+tipo: consulta                # consulta | encargo | aviso | sugerencia | metodo | proyecto-nuevo (pedir un proyecto) | tus-proyectos (de David: tu lista de proyectos)
 estado: pendiente             # pendiente → en-curso → respondido → cerrado
 urgente: no
 acuse: null                   # fecha en que lo leyó la PERSONA destinataria. Si para: todos, una línea por persona: {<nombre>: fecha}
@@ -83,3 +83,17 @@ David, para todo proyecto):
 - **Ningún importe, dato personal ni secreto** en un mensaje: solo la ruta del archivo donde está.
 - **`git pull` al empezar cada sesión y antes de cerrar cada trozo de trabajo**, para ver lo que haya
   llegado mientras tanto.
+
+## Tus proyectos (`tipo: tus-proyectos`)
+
+Lo escribe la operación de ArmonIA en nombre de David (`de: David`, `acuse:` vacío) cuando sabe qué proyectos tienes. Trae
+**solo lo tuyo**: nunca un proyecto de otra persona ni datos de un tercero, y nada de lo personal.
+
+```markdown
+## Tus proyectos
+| Proyecto | Estado | Tu bandeja |
+|---|---|---|
+| el nombre tal como lo conoces | activo o inactivo | dónde está su carpeta de pendientes, si la tiene |
+```
+
+Tu agente te lo lee al empezar la sesión y te propone pasar cada fila a tu portafolio, una por una y solo con tu sí.

@@ -10,7 +10,10 @@
     "deny": [
       "Bash(git push --force*)",
       "Bash(git push -f*)",
-      "Read(.env*)"
+      "Read(.env*)",
+      "Bash(git add -f*)",
+      "Bash(git add --force*)",
+      "Bash(git add solo-en-mi-computador*)"
     ]
   },
   "extraKnownMarketplaces": {
