@@ -26,6 +26,16 @@
 #     hecho-cuando: "un resultado que se ve"
 #     tope: AAAA-MM-DD
 #     estado: abierto                    # abierto | logrado | pausado
+#     metas:                             # de 1 a 3 (la guía del agente, sección 9): cómo se ve que va bien
+#       - id: MT-1
+#         nombre: "en sus palabras, sin nombres de otras personas ni importes"
+#         meta: "12"                     # un número; con % si es un por ciento; con ≤ si menos es mejor
+#         mide: ella                     # quién mira el número
+#         fuente: "de dónde sale, por su tipo (su agenda, su portafolio…), sin nombres"
+#         clase: abierta                 # abierta | privada (de dinero, de su familia o de un cliente)
+#       - id: MT-2                       # una privada: aquí solo su por ciento; su cifra, en solo-en-mi-computador/metas.md
+#         clase: privada
+#         avance: "40%"
 orquestar: auto   # auto | encendido | apagado: varios sitios a la vez (la guía del agente, sección 8)
 coach: auto       # auto | encendido | apagado: tu coach de entrada (la guía del agente, sección 9)
 objetivos: []

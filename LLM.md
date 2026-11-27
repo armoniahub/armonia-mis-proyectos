@@ -463,9 +463,19 @@ si hay algo nuevo o si la pide. La apertura:
 ### Su ruta: su norte, sus motivos y su rumbo
 
 Es la de la sección 7, igual para todos: su **norte** en una frase, sus **motivos** y de **2 a 4 objetivos**, cada uno con
-su «hecho cuando» y su tope. **Sin épicas**: ella tiene proyectos, no épicas. Con el coach
+su «hecho cuando», su tope y **de 1 a 3 metas**. **Sin épicas**: ella tiene proyectos, no épicas. Con el coach
 encendido, **la llevas tú desde el principio**: en cuanto existan su `perfil.md` y su `mapa.md`, le propones su norte y sus
 motivos, y después su rumbo (sección 7, paso 1). Ella escribe y firma.
+
+**Sus metas** dicen, con un número, cómo se ve que un objetivo va bien. **Tú las propones, y ella las escribe y las
+firma** con su rumbo (sección 7, pasos 2 a 4), de 1 a 3 por objetivo, con los campos de `plantillas/objetivos.md`: su
+`id` (`MT-1`, `MT-2`…), su nombre en sus palabras, la meta (un número; con «%» si es un por ciento; con «≤» si menos es
+mejor), quién la mide (ella), de dónde sale el número por su tipo, sin nombres, y su clase. El número de ahora no se
+escribe: se lo preguntas en la revisión (sección 7, paso 6), y si no lo sabe, la meta queda sin valor, sin inventarlo.
+- **Una meta de dinero, de su familia o de un cliente es `privada`:** en `objetivos.md` va solo su `id`, `clase:
+  privada` y, si ella quiere, su `avance` en por ciento. Su nombre, su cifra y su fuente se quedan en su computador, en
+  `solo-en-mi-computador/metas.md`, que nunca se sube. Fuera de este espacio, como mucho sale su por ciento.
+- Sin nombres de otras personas ni importes en una meta `abierta`. Ante la duda, es `privada`.
 
 **Su tablero en la web** todavía no existe: llegará con una versión nueva de esta guía. Hasta entonces, su rumbo se lo
 enseñas tú en la conversación.
